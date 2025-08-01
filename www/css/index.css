@@ -1,0 +1,30 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F2D49D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+    .logo-container {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .logo-container img {
+      max-width: 200px;
+      height: auto;
+    }
+
+    .contenido {
+      text-align: center;
+      padding: 20px;
+    }
+
+h1 {
+    color: #73655d;
+}

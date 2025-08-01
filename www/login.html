@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/formularios.css">
+    <title>Inicio de sesión</title>
+</head>
+<body>
+
+        <form action="" method="POST" autocomplete="off">
+            <h1>Inicio de sesión</h1><br>
+            <div class="input-group">
+                <label for="correo" style="text-align: left;"><b>Correo</b></label>
+                <input type="email" name="email" placeholder="Email" required>
+                <label for="contrasena" style="text-align: left;"><b>Contraseña</b></label>
+                <input type="password" name="password" placeholder="Contraseña" required>
+        
+            <center>
+            <input type="submit" class="button_slide" value="Ingresar" onclick="window.location.href='inicio.html'; return false;">
+            </center>
+            <label for="irRegistro" style="text-align: left;"><b>Si no tienes cuenta <a href="registro.html">crea una aquí</a></b></label>
+            </div>
+        </form>
+
+        <script src="js/login.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+       
+</body>
+</html>

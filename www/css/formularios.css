@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  font-family: "Truculenta", sans-serif;
+}
+
+form {
+  padding: 50px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  text-align: center;
+  width: 340px;
+  background-color: #F2D49D;
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+}
+
+form h1 {
+  color: #000;
+  font-size: 35px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, textarea, select {
+  background-color: #fff;
+  padding: 20px 14px;
+  margin-bottom: 25px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #000;
+  font-family: "Roboto Slab", serif;
+}
+
+::placeholder {
+  color: #000;
+  font-size: 15px;
+}
+
+.button_slide {
+  height: 60px;
+  width: 160px;
+  font-family: "Roboto Slab", serif;
+  font-size: large;
+  border: 3px solid #6d2e02;
+  background-color: #b47846;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button_slide:hover {
+  background-color: #a06c3c;
+}
+
+@media (max-width: 991px) {
+  body {
+    padding: 30px;
+  }
+  form {
+    width: 100%;
+  }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/formularios.css">
+    <title>Registro</title>
+</head>
+<body>
+    
+            <form action="" method="POST" autocomplete="off">
+            <h1>Registro</h1><br>
+            <div class="input-group">
+                <label for="nombre" style="text-align: left;"><b>Nombre</b></label>
+                <input type="text" name="name" placeholder="Nombre" required>
+                <label for="correo" style="text-align: left;"><b>Correo</b></label>
+                <input type="email" name="email" placeholder="Email" required>
+                <label for="contraseña" style="text-align: left;"><b>Contraseña</b></label>
+                <input type="password" name="password" placeholder="Contraseña" required>
+            
+            <center>
+            <input type="submit" class="button_slide" value="Registrar" onclick="registro()">
+            </center>
+             <label for="irRegistro" style="text-align: left;"><b>Si ya tienes cuenta <a href="login.html">inicia sesión aquí</a></b></label>
+            </div>
+        </form>
+
+        <script src="js/registro.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+</body>
+</html>
