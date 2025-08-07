@@ -7,13 +7,12 @@ async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
   try {
     let url = "/tareas";
 
+    // Si hay filtro, se usa la ruta con key/value
     if (filtroCampo && filtroValor) {
       url += `/${filtroCampo}/${encodeURIComponent(filtroValor)}`;
-    }
-
-    if (orden) {
-      const separator = url.includes('?') ? '&' : '?';
-      url += `${separator}orden=${orden}`;
+    } else if (orden) {
+      // Solo agregamos orden si no hay filtro
+      url += `?orden=${orden}`;
     }
 
     const res = await axiosInstance.get(url);
@@ -65,9 +64,6 @@ function cambiarPlaceholder() {
       break;
     case "prioridad":
       input.placeholder = "Buscar por prioridad (Alta, Media, Baja)...";
-      break;
-    case "fechaEntrega":
-      input.placeholder = "Buscar por fecha (YYYY-MM-DD)...";
       break;
   }
 
