@@ -1,0 +1,110 @@
+async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
+  const contenedor = document.getElementById("listaTareas");
+  contenedor.innerHTML = "";
+
+  const axiosInstance = getAxiosInstance();
+
+  try {
+    let url = "/tareas";
+
+    if (filtroCampo && filtroValor) {
+      url += `/${filtroCampo}/${encodeURIComponent(filtroValor)}`;
+    }
+
+    if (orden) {
+      const separator = url.includes('?') ? '&' : '?';
+      url += `${separator}orden=${orden}`;
+    }
+
+    const res = await axiosInstance.get(url);
+    const tareas = res.data.tareas;
+
+    if (!tareas.length) {
+      contenedor.innerHTML = "<p>No hay tareas que coincidan con tu búsqueda.</p>";
+      return;
+    }
+
+    tareas.forEach(t => contenedor.appendChild(crearTarjetaTarea(t)));
+
+  } catch (error) {
+    console.error(error);
+    contenedor.innerHTML = "<p>Error al cargar tareas.</p>";
+  }
+}
+
+function crearTarjetaTarea(t) {
+  const div = document.createElement("div");
+  div.className = "card mt-3 p-3";
+
+  div.innerHTML = `
+    <h3>${t.nombreTarea}</h3>
+    <p><b>Materia:</b> ${t.materia}</p>
+    <p><b>Fecha de entrega:</b> ${new Date(t.fechaEntrega).toLocaleDateString()}</p>
+    <p><b>Prioridad:</b> ${t.prioridad}</p>
+    <p><b>Descripción:</b> ${t.descripcion}</p>
+    <button class="btnEditar btn btn-primary btn-sm me-2">Editar</button>
+    <button class="btn btn-danger btn-sm">Eliminar</button>
+  `;
+
+  div.querySelector(".btnEditar").addEventListener("click", () => abrirModalEditar(t));
+  div.querySelector(".btn-danger").addEventListener("click", () => eliminarTarea(t.nombreTarea));
+
+  return div;
+}
+
+function cambiarPlaceholder() {
+  const campo = document.getElementById("filtroCampo").value;
+  const input = document.getElementById("filtroValor");
+
+  switch (campo) {
+    case "nombreTarea":
+      input.placeholder = "Buscar por nombre...";
+      break;
+    case "materia":
+      input.placeholder = "Buscar por materia...";
+      break;
+    case "prioridad":
+      input.placeholder = "Buscar por prioridad (Alta, Media, Baja)...";
+      break;
+    case "fechaEntrega":
+      input.placeholder = "Buscar por fecha (YYYY-MM-DD)...";
+      break;
+  }
+
+  input.value = "";
+}
+
+function aplicarFiltros() {
+  const campo = document.getElementById("filtroCampo").value;
+  const valor = document.getElementById("filtroValor").value.trim();
+  const orden = document.getElementById("ordenarPor").value;
+
+  cargarTareas(campo, valor, orden);
+}
+
+async function eliminarTarea(nombreTarea) {
+  const confirmacion = await Swal.fire({
+    title: "¿Estás seguro?",
+    text: "Esta acción eliminará la tarea permanentemente",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar"
+  });
+
+  // Solo continuar si el usuario confirma
+  if (confirmacion.isConfirmed) {
+    const axiosInstance = getAxiosInstance();
+
+    try {
+      const res = await axiosInstance.delete(`/tareas/nombreTarea/${encodeURIComponent(nombreTarea)}`);
+      Swal.fire("Eliminado", res.data.mensaje || "Tarea eliminada", "success");
+      cargarTareas(); // Recargar lista
+    } catch (err) {
+      console.error("Error al eliminar tarea:", err);
+      Swal.fire("Error", "No se pudo eliminar la tarea", "error");
+    }
+  }
+}

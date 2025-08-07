@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/formularios.css">
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio de sesión</title>
-</head>
-<body>
+    <link rel="stylesheet" href="css/formularios.css" />
+  </head>
+  <body>
+    <form id="loginForm">
+      <h1>Inicio de sesión</h1><br />
+      <div class="input-group">
+        <label for="correo"><b>Correo</b></label>
+        <input type="email" id="correo" required />
+        <label for="contrasena"><b>Contraseña</b></label>
+        <input type="password" id="contrasena" required />
+        <center><input type="submit" value="Ingresar" class="button_slide" /></center>
+        <p><a href="registro.html">¿No tienes cuenta? Regístrate</a></p>
+      </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", loginUsuario);
+    </script>
 
-        <form action="" method="POST" autocomplete="off">
-            <h1>Inicio de sesión</h1><br>
-            <div class="input-group">
-                <label for="correo" style="text-align: left;"><b>Correo</b></label>
-                <input type="email" name="email" placeholder="Email" required>
-                <label for="contrasena" style="text-align: left;"><b>Contraseña</b></label>
-                <input type="password" name="password" placeholder="Contraseña" required>
-        
-            <center>
-            <input type="submit" class="button_slide" value="Ingresar" onclick="window.location.href='inicio.html'; return false;">
-            </center>
-            <label for="irRegistro" style="text-align: left;"><b>Si no tienes cuenta <a href="registro.html">crea una aquí</a></b></label>
-            </div>
-        </form>
-
-        <script src="js/login.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-       
-</body>
+  </body>
 </html>

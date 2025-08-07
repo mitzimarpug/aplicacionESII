@@ -28,3 +28,12 @@ body {
 h1 {
     color: #73655d;
 }
+
+#splash-logo {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+}
+
+#splash-logo.fade-out {
+    opacity: 0;
+}

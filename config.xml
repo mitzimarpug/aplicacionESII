@@ -1,11 +1,20 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
-    <description>Sample Apache Cordova App</description>
-    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
-        Apache Cordova Team
+<widget id="com.example.tareasapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>ESII</name>
+    <description>
+        Aplicación para gestión de tareas
+    </description>
+    <author email="dev@example.com" href="http://example.com">
+        Tu Nombre
     </author>
     <content src="index.html" />
+    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <platform name="android">
+        <allow-navigation href="*" />
+        <access origin="*" />
+        <preference name="AndroidInsecureFileModeEnabled" value="true" />
+        <preference name="MixedContentMode" value="always" />
+    </platform>
 </widget>
