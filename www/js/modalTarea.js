@@ -45,7 +45,6 @@ function abrirModalEditar(tarea) {
   };
 }
 
-
 function cerrarModal() {
   document.getElementById("modalTarea").style.display = "none";
 }

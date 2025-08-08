@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <header class="main-header">
+    <label for="btn-nav" class="btn-nav"><img src="img/menu.png" alt="logo" width="25px"><i class="fas fa-bars"></i></label>
+      <input type="checkbox" id="btn-nav">    
+        <nav>
+          <ul class="navigation">
+            <li><a href="index.html">Principal</a></li>
+            <li><a href="tareas.html">Tareas</a></li>
+            <li><a href="registro.html">Registrar receta</a></li>
+            <li><a href="recetas.html">Mis recetas</a></li>
+            <li><a href="desarrolladores.html">Desarrolladores</a></li>
+            <li><a href="" onclick="logout()">Cerrar sesión</a></li>
+          </ul>
+        </nav>
+  </header>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/tareasHistorial.js"></script>
+</body>
+</html>
