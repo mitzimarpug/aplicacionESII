@@ -8,6 +8,7 @@
 <body>
   <header class="main-header">
     <label for="btn-nav" class="btn-nav"><img src="img/menu.png" alt="logo" width="25px"><i class="fas fa-bars"></i></label>
+    <link rel="stylesheet" href="css/historial.css">
       <input type="checkbox" id="btn-nav">    
         <nav>
           <ul class="navigation">
@@ -20,12 +21,21 @@
           </ul>
         </nav>
   </header>
-
-
-
+  <div class="container-tareas">
+    <h2>Historial de Tareas Completadas</h2>
+    <div id="listaCompletadas" class="tareas-lista"></div>
+  </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/config.js"></script>
   <script src="js/tareasHistorial.js"></script>
+  <script>
+    const token = localStorage.getItem("token");
+        if (!token) {
+          window.location.href = "login.html";
+        }
+      document.addEventListener("DOMContentLoaded", cargarHistorial);
+  </script>
 </body>
 </html>

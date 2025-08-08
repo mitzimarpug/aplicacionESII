@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.137.57:3000/api";
+const API_URL = "http://10.0.0.8:3000/api";
 
 const getAxiosInstance = () => {
   const token = localStorage.getItem("token");

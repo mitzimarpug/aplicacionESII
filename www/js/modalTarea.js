@@ -17,6 +17,7 @@ function abrirModalEditar(tarea) {
   document.getElementById("modalNombre").value = tarea.nombreTarea;
   document.getElementById("modalMateria").value = tarea.materia;
   document.getElementById("modalFecha").value = tarea.fechaEntrega.split("T")[0];
+  document.getElementById("modalHora").value = tarea.fechaEntrega.split("T")[0];
   document.getElementById("modalPrioridad").value = tarea.prioridad;
   document.getElementById("modalDescripcion").value = tarea.descripcion;
   document.getElementById("modalTarea").style.display = "block";
@@ -29,6 +30,7 @@ function abrirModalEditar(tarea) {
       nombreTarea: document.getElementById("modalNombre").value,
       materia: document.getElementById("modalMateria").value,
       fechaEntrega: document.getElementById("modalFecha").value,
+      horaEntrega: document.getElementById("modalHora").value,
       prioridad: document.getElementById("modalPrioridad").value,
       descripcion: document.getElementById("modalDescripcion").value,
     };
@@ -54,8 +56,14 @@ async function agregarDesdeModal() {
   const nombreTarea = document.getElementById("modalNombre").value;
   const materia = document.getElementById("modalMateria").value;
   const fechaEntrega = document.getElementById("modalFecha").value;
+  const horaEntrega = document.getElementById("modalHora").value;
   const prioridad = document.getElementById("modalPrioridad").value;
   const descripcion = document.getElementById("modalDescripcion").value;
+
+  if (!fechaEntrega || !horaEntrega) {
+    Swal.fire("Error", "Debes ingresar fecha y hora de entrega", "warning");
+    return;
+  }
 
   try {
     const axiosInstance = getAxiosInstance();
@@ -63,6 +71,7 @@ async function agregarDesdeModal() {
       nombreTarea,
       materia,
       fechaEntrega,
+      horaEntrega,
       prioridad,
       descripcion
     });
