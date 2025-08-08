@@ -16,8 +16,12 @@ function abrirModalEditar(tarea) {
   document.getElementById("modalTitulo").textContent = "Editar Tarea";
   document.getElementById("modalNombre").value = tarea.nombreTarea;
   document.getElementById("modalMateria").value = tarea.materia;
-  document.getElementById("modalFecha").value = tarea.fechaEntrega.split("T")[0];
-  document.getElementById("modalHora").value = tarea.fechaEntrega.split("T")[0];
+
+  // Ajustar la fecha para evitar desfase por zona horaria
+  const fecha = new Date(tarea.fechaEntrega);
+  fecha.setMinutes(fecha.getMinutes() - fecha.getTimezoneOffset());
+  document.getElementById("modalFecha").value = fecha.toISOString().split("T")[0];
+
   document.getElementById("modalPrioridad").value = tarea.prioridad;
   document.getElementById("modalDescripcion").value = tarea.descripcion;
   document.getElementById("modalTarea").style.display = "block";
@@ -30,7 +34,6 @@ function abrirModalEditar(tarea) {
       nombreTarea: document.getElementById("modalNombre").value,
       materia: document.getElementById("modalMateria").value,
       fechaEntrega: document.getElementById("modalFecha").value,
-      horaEntrega: document.getElementById("modalHora").value,
       prioridad: document.getElementById("modalPrioridad").value,
       descripcion: document.getElementById("modalDescripcion").value,
     };
@@ -47,6 +50,7 @@ function abrirModalEditar(tarea) {
   };
 }
 
+
 function cerrarModal() {
   document.getElementById("modalTarea").style.display = "none";
 }
@@ -56,22 +60,16 @@ async function agregarDesdeModal() {
   const nombreTarea = document.getElementById("modalNombre").value;
   const materia = document.getElementById("modalMateria").value;
   const fechaEntrega = document.getElementById("modalFecha").value;
-  const horaEntrega = document.getElementById("modalHora").value;
   const prioridad = document.getElementById("modalPrioridad").value;
   const descripcion = document.getElementById("modalDescripcion").value;
 
-  if (!fechaEntrega || !horaEntrega) {
-    Swal.fire("Error", "Debes ingresar fecha y hora de entrega", "warning");
-    return;
-  }
-
+  console.log("Fecha desde modal:", fechaEntrega);
   try {
     const axiosInstance = getAxiosInstance();
     await axiosInstance.post('/tareas', {
       nombreTarea,
       materia,
       fechaEntrega,
-      horaEntrega,
       prioridad,
       descripcion
     });

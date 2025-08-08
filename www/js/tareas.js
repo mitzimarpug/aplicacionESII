@@ -1,3 +1,36 @@
+function crearTarjetaTarea(t) {
+
+  const div = document.createElement("div");
+  div.className = "card mt-3 p-3";
+
+  div.innerHTML = `
+    <h3>${t.nombreTarea}</h3>
+    <p><b>Materia:</b> ${t.materia}</p>
+    <p><b>Fecha de entrega:</b> ${new Date(t.fechaEntrega).toLocaleDateString()}</p>
+    <p><b>Prioridad:</b> ${t.prioridad}</p>
+    <p><b>Descripción:</b> ${t.descripcion}</p>
+    ${t.completada ? '<span class="badge bg-success">Completada</span>' : `
+      <button class="btnCompletar btn btn-success btn-sm me-2">Marcar como completada</button>
+    `}
+    <button class="btnEditar btn btn-primary btn-sm me-2">Editar</button>
+    <button class="btn btn-danger btn-sm">Eliminar</button>
+  `;
+
+  // Evento: marcar como completada
+  if (!t.completada) {
+    div.querySelector(".btnCompletar").addEventListener("click", () => marcarComoCompletada(t.nombreTarea));
+  }
+
+  // Evento: editar
+  div.querySelector(".btnEditar").addEventListener("click", () => abrirModalEditar(t));
+
+  // Evento: eliminar
+  div.querySelector(".btn-danger").addEventListener("click", () => eliminarTarea(t.nombreTarea));
+
+  return div;
+}
+
+
 async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
   const contenedor = document.getElementById("listaTareas");
   contenedor.innerHTML = "";
@@ -29,42 +62,6 @@ async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
     console.error(error);
     contenedor.innerHTML = "<p>Error al cargar tareas.</p>";
   }
-}
-
-function crearTarjetaTarea(t) {
-  const fecha = new Date(t.fechaEntrega);
-  const fechaFormateada = fecha.toLocaleDateString();
-  const horaFormateada = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-  const div = document.createElement("div");
-  div.className = "card mt-3 p-3";
-
-  div.innerHTML = `
-    <h3>${t.nombreTarea}</h3>
-    <p><b>Materia:</b> ${t.materia}</p>
-    <p><b>Fecha de entrega:</b>${fechaFormateada}</p>
-    <p><b>Hora de entrega:</b>${horaFormateada}</p>
-    <p><b>Prioridad:</b> ${t.prioridad}</p>
-    <p><b>Descripción:</b> ${t.descripcion}</p>
-    ${t.completada ? '<span class="badge bg-success">Completada</span>' : `
-      <button class="btnCompletar btn btn-success btn-sm me-2">Marcar como completada</button>
-    `}
-    <button class="btnEditar btn btn-primary btn-sm me-2">Editar</button>
-    <button class="btn btn-danger btn-sm">Eliminar</button>
-  `;
-
-  // Evento: marcar como completada
-  if (!t.completada) {
-    div.querySelector(".btnCompletar").addEventListener("click", () => marcarComoCompletada(t.nombreTarea));
-  }
-
-  // Evento: editar
-  div.querySelector(".btnEditar").addEventListener("click", () => abrirModalEditar(t));
-
-  // Evento: eliminar
-  div.querySelector(".btn-danger").addEventListener("click", () => eliminarTarea(t.nombreTarea));
-
-  return div;
 }
 
 function marcarComoCompletada(nombreTarea) {
@@ -135,3 +132,5 @@ async function eliminarTarea(nombreTarea) {
     }
   }
 }
+
+
