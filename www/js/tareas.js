@@ -1,55 +1,34 @@
-// function crearTarjetaTarea(t) {
-
-//   const div = document.createElement("div");
-//   div.className = "card mt-3 p-3";
-
-//   div.innerHTML = `
-//     <h3>${t.nombreTarea}</h3>
-//     <p><b>Materia:</b> ${t.materia}</p>
-//     <p><b>Fecha de entrega:</b> ${new Date(t.fechaEntrega).toLocaleDateString()}</p>
-//     <p><b>Prioridad:</b> ${t.prioridad}</p>
-//     <p><b>Descripción:</b> ${t.descripcion}</p>
-//     ${t.completada ? '<span class="badge bg-success">Completada</span>' : `
-//       <button class="btnCompletar btn btn-success btn-sm me-2">Marcar como completada</button>
-//     `}
-//     <button class="btnEditar btn btn-primary btn-sm me-2">Editar</button>
-//     <button class="btn btn-danger btn-sm">Eliminar</button>
-//   `;
-
-//   // Evento: marcar como completada
-//   if (!t.completada) {
-//     div.querySelector(".btnCompletar").addEventListener("click", () => marcarComoCompletada(t.nombreTarea));
-//   }
-
-//   // Evento: editar
-//   div.querySelector(".btnEditar").addEventListener("click", () => abrirModalEditar(t));
-
-//   // Evento: eliminar
-//   div.querySelector(".btn-danger").addEventListener("click", () => eliminarTarea(t.nombreTarea));
-
-//   return div;
-// }
-
-function formatDateUTC(dateString) {
+function formatDateTimeLocal12h(dateString) {
   if (!dateString) return "Fecha no disponible";
   const d = new Date(dateString);
   if (isNaN(d)) return "Fecha inválida";
-  const year = d.getUTCFullYear();
-  const month = String(d.getUTCMonth() + 1).padStart(2, "0");
-  const day = String(d.getUTCDate()).padStart(2, "0");
-  return `${day}/${month}/${year}`;
+
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+
+  let hours = d.getHours();
+  const minutes = String(d.getMinutes()).padStart(2, "0");
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12;
+  if (hours === 0) hours = 12;
+
+  return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
 }
+
+
 
 function crearTarjetaTarea(t) {
   const div = document.createElement("div");
   div.className = "card mt-3 p-3";
 
-  const fechaMostrar = formatDateUTC(t.fechaEntrega);
-
   div.innerHTML = `
     <h3>${t.nombreTarea}</h3>
     <p><b>Materia:</b> ${t.materia}</p>
-    <p><b>Fecha de entrega:</b> ${fechaMostrar}</p>
+    <p><b>Fecha y hora de entrega:</b> ${formatDateTimeLocal12h(t.fechaEntrega)}</p>
+
+
     <p><b>Prioridad:</b> ${t.prioridad}</p>
     <p><b>Descripción:</b> ${t.descripcion}</p>
     ${
@@ -69,7 +48,6 @@ function crearTarjetaTarea(t) {
 
   return div;
 }
-
 
 
 async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
