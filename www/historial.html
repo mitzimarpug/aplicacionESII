@@ -12,11 +12,8 @@
       <input type="checkbox" id="btn-nav">    
         <nav>
           <ul class="navigation">
-            <li><a href="index.html">Principal</a></li>
             <li><a href="tareas.html">Tareas</a></li>
-            <li><a href="registro.html">Registrar receta</a></li>
-            <li><a href="recetas.html">Mis recetas</a></li>
-            <li><a href="desarrolladores.html">Desarrolladores</a></li>
+            <li><a href="historial.html">Historial</a></li>            
             <li><a href="" onclick="logout()">Cerrar sesión</a></li>
           </ul>
         </nav>
@@ -30,12 +27,16 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/config.js"></script>
   <script src="js/tareasHistorial.js"></script>
+  <script src="js/tareas.js"></script>
   <script>
     const token = localStorage.getItem("token");
         if (!token) {
           window.location.href = "login.html";
         }
       document.addEventListener("DOMContentLoaded", cargarHistorial);
+      document.addEventListener('DOMContentLoaded', () => {
+      cargarTareasCompletadas();
+      });
   </script>
 </body>
 </html>

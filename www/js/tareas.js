@@ -17,8 +17,6 @@ function formatDateTimeLocal12h(dateString) {
   return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
 }
 
-
-
 function crearTarjetaTarea(t) {
   const div = document.createElement("div");
   div.className = "card mt-3 p-3";
@@ -49,7 +47,6 @@ function crearTarjetaTarea(t) {
   return div;
 }
 
-
 async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
   const contenedor = document.getElementById("listaTareas");
   contenedor.innerHTML = "";
@@ -57,14 +54,12 @@ async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
   const axiosInstance = getAxiosInstance();
 
   try {
-    let url = "/tareas";
+    let url = "/tareas?completada=false"; // 🔹 solo tareas NO completadas
 
-    // Si hay filtro, se usa la ruta con key/value
     if (filtroCampo && filtroValor) {
-      url += `/${filtroCampo}/${encodeURIComponent(filtroValor)}`;
+      url += `&${filtroCampo}=${encodeURIComponent(filtroValor)}`;
     } else if (orden) {
-      // Solo agregamos orden si no hay filtro
-      url += `?orden=${orden}`;
+      url += `&orden=${orden}`;
     }
 
     const res = await axiosInstance.get(url);
@@ -76,12 +71,12 @@ async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
     }
 
     tareas.forEach(t => contenedor.appendChild(crearTarjetaTarea(t)));
-
   } catch (error) {
     console.error(error);
     contenedor.innerHTML = "<p>Error al cargar tareas.</p>";
   }
 }
+
 
 function marcarComoCompletada(nombreTarea) {
   const axiosInstance = getAxiosInstance();
@@ -96,7 +91,6 @@ function marcarComoCompletada(nombreTarea) {
       alert("Error al marcar tarea como completada");
     });
 }
-
 
 function cambiarPlaceholder() {
   const campo = document.getElementById("filtroCampo").value;
@@ -144,7 +138,8 @@ async function eliminarTarea(nombreTarea) {
     try {
       const res = await axiosInstance.delete(`/tareas/nombreTarea/${encodeURIComponent(nombreTarea)}`);
       Swal.fire("Eliminado", res.data.mensaje || "Tarea eliminada", "success");
-      cargarTareas(); // Recargar lista
+      cargarTareas();
+      cargarHistorial(); // Recargar lista
     } catch (err) {
       console.error("Error al eliminar tarea:", err);
       Swal.fire("Error", "No se pudo eliminar la tarea", "error");

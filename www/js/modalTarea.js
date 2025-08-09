@@ -65,17 +65,20 @@ function cerrarModal() {
 async function agregarDesdeModal() {
   const nombreTarea = document.getElementById("modalNombre").value;
   const materia = document.getElementById("modalMateria").value;
-  const fechaEntrega = document.getElementById("modalFecha").value;
+  
+  // Si usas datetime-local
+  const fechaHoraLocal = document.getElementById("modalFechaHora").value;
+  const fechaUTC = new Date(fechaHoraLocal);
+
   const prioridad = document.getElementById("modalPrioridad").value;
   const descripcion = document.getElementById("modalDescripcion").value;
 
-  console.log("Fecha desde modal:", fechaEntrega);
   try {
     const axiosInstance = getAxiosInstance();
     await axiosInstance.post('/tareas', {
       nombreTarea,
       materia,
-      fechaEntrega,
+      fechaEntrega: fechaUTC.toISOString(),
       prioridad,
       descripcion
     });
@@ -87,3 +90,4 @@ async function agregarDesdeModal() {
     Swal.fire("Error", error.response?.data?.mensaje || "Error desconocido", "error");
   }
 }
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recordatorios</title>
+    <link rel="stylesheet" href="css/recordatorios.css">
+</head>
+<body>
+    <h1>Mis Recordatorios</h1>
+
+    <form id="recordatorioForm">
+        <input type="text" id="titulo" placeholder="Título" required>
+        <input type="date" id="fecha" required>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <h2>Lista de Recordatorios</h2>
+    <ul id="listaRecordatorios"></ul>
+
+    <script src="cordova.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        const token = localStorage.getItem("token");
+        if (!token) {
+          window.location.href = "login.html";
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+          obtenerRecordatorios();
+        });   
+    </script>
+    <script src="js/recordatorios.js"></script>
+</body>
+</html>
