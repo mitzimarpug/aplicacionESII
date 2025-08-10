@@ -1,95 +1,142 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Tareas</title>
-    <link rel="stylesheet" href="css/formularios.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/tareas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Roboto+Slab:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-  <header class="main-header">
-    <label for="btn-nav" class="btn-nav"><img src="img/menu.png" alt="logo" width="25px"><i class="fas fa-bars"></i></label>
-      <input type="checkbox" id="btn-nav">    
-        <nav>
-          <ul class="navigation">
-            <li><a href="historial.html">Historial</a></li>
-            <li><a href="recordatorios.html">Recordatorios</a></li>
-            <li><a href="" onclick="logout()">Cerrar sesión</a></li>
-          </ul>
-        </nav>
-  </header>
+<header class="main-header">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-label">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <h1 class="logo">Mis Tareas</h1>
+  
+  <nav class="main-nav">
+    <ul>
+      <li><a href="./historial.html">Historial</a></li>
+      <li><a href="recordatorios.html">Recordatorios</a></li>
+      <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <div class="filtros-container">
-    <select id="filtroCampo" onchange="cambiarPlaceholder(); aplicarFiltros();">
-      <option value="nombreTarea">Buscar por nombre</option>
-      <option value="materia">Buscar por materia</option>
-      <option value="prioridad">Buscar por prioridad</option>
+<!-- <div class="filtros-container">
+    <input type="text" id="filtroValor" class="icono-buscar" placeholder="Buscar tareas..." oninput="aplicarFiltros()">
+    
+    <select id="filtroCampo" class="icono-filtro" onchange="cambiarPlaceholder(); aplicarFiltros();">
+        <option value="nombreTarea">Nombre</option>
+        <option value="materia">Materia</option>
+        <option value="prioridad">Prioridad</option>
     </select>
-
-  <input type="text" id="filtroValor" placeholder="Buscar por nombre..." oninput="aplicarFiltros()">
-
+    
     <select id="ordenarPor" onchange="aplicarFiltros()">
-    <option value="">Ordenar por...</option>
-    <option value="fecha-desc">Fecha (más antigua primero)</option>
-    <option value="fecha-asc">Fecha (más reciente primero)</option>
-    <option value="nombre-asc">Nombre (A-Z)</option>
-    <option value="nombre-desc">Nombre (Z-A)</option>
-  </select>
-  </div>
+        <option value="">Ordenar por...</option>
+        <option value="fecha-asc">Fecha (↑)</option>
+        <option value="fecha-desc">Fecha (↓)</option>
+        <option value="nombre-asc">Nombre (A-Z)</option>
+        <option value="nombre-desc">Nombre (Z-A)</option>
+    </select>
+</div> -->
 
-  <div class="container-tareas">
+<!-- Reemplaza tu actual filtros-container con este código -->
+<div class="search-container">
+  <!-- Barra de búsqueda principal -->
+  <div class="search-bar">
+    <input type="text" id="filtroValor" placeholder="Buscar tareas..." class="icono-buscar" oninput="aplicarFiltros()">
+    <button class="btn-filter-toggle" onclick="toggleFilters()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Panel de filtros desplegable (oculto inicialmente) -->
+  <div class="filters-panel" id="filtersPanel">
+    <div class="filter-group">
+      <label for="filtroCampo">Buscar por:</label>
+      <select id="filtroCampo" onchange="cambiarPlaceholder(); aplicarFiltros();">
+        <option value="nombreTarea">Nombre</option>
+        <option value="materia">Materia</option>
+        <option value="prioridad">Prioridad</option>
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label for="ordenarPor">Ordenar por:</label>
+      <select id="ordenarPor" onchange="aplicarFiltros()">
+        <option value="">Sin orden</option>
+        <option value="fecha-asc">Fecha (↑)</option>
+        <option value="fecha-desc">Fecha (↓)</option>
+        <option value="nombre-asc">Nombre (A-Z)</option>
+        <option value="nombre-desc">Nombre (Z-A)</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="container-tareas">
     <div class="tareas-lista" id="listaTareas">
-    <!-- Aquí se cargan las tareas -->
+        <!-- Aquí se cargan las tareas dinámicamente -->
     </div>
-  </div>
+</div>
 
-  <!-- Botón flotante para agregar tarea -->
-  <button id="btnAgregarTarea" class="btn-flotante" onclick="abrirModalAgregar()">
+<button id="btnAgregarTarea" class="btn-flotante" onclick="abrirModalAgregar()">
     +
-  </button>
+</button>
 
-  <!-- Modal de agregar/editar tarea -->
-  <div id="modalTarea" class="modal">
+<div id="modalTarea" class="modal">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <h2 id="modalTitulo">Agregar Tarea</h2>
-        <form id="formModalTarea">
-          <label>Nombre</label>
-          <input type="text" id="modalNombre" required />
-          <label>Materia</label>
-          <input type="text" id="modalMateria" required />
-          <label>Fecha de entrega</label>
-          <input type="datetime-local" id="modalFechaHora" />
-          <label>Prioridad</label>
-          <select id="modalPrioridad">
-            <option>Alta</option>
-            <option>Media</option>
-            <option>Baja</option>
-          </select>
-          <label>Descripción</label>
-          <textarea id="modalDescripcion" required></textarea>
-          <button type="submit" class="button_slide">Guardar</button>
-        </form>
-      </div>
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2 id="modalTitulo">Agregar Tarea</h2>
+            <form id="formModalTarea">
+                <label>Nombre de la tarea</label>
+                <input type="text" id="modalNombre" required>
+                
+                <label>Materia</label>
+                <input type="text" id="modalMateria" required>
+                
+                <label>Fecha de entrega</label>
+                <input type="datetime-local" id="modalFechaHora">
+                
+                <label>Prioridad</label>
+                <select id="modalPrioridad">
+                    <option value="Alta">Alta</option>
+                    <option value="Media" selected>Media</option>
+                    <option value="Baja">Baja</option>
+                </select>
+                
+                <label>Descripción</label>
+                <textarea id="modalDescripcion" rows="4" required></textarea>
+                
+                <button type="submit">Guardar Tarea</button>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/config.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/tareas.js"></script>
-    <script src="js/modalTarea.js"></script>
-    <script>
-      const token = localStorage.getItem("token");
-        if (!token) {
-          window.location.href = "login.html";
-        }
-        document.addEventListener("DOMContentLoaded", () => {
-          cargarTareas();
-        });
-    </script>
-  </body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/tareas.js"></script>
+<script src="js/modalTarea.js"></script>
+<script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "login.html";
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        cargarTareas();
+    });
+</script>
+</body>
 </html>

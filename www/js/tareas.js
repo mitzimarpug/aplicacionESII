@@ -17,34 +17,77 @@ function formatDateTimeLocal12h(dateString) {
   return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
 }
 
+
 function crearTarjetaTarea(t) {
   const div = document.createElement("div");
-  div.className = "card mt-3 p-3";
+  div.className = `card ${getPrioridadClass(t.prioridad)}`;
+  div.style.cursor = "pointer";
+  
+  const fechaEntrega = t.fechaEntrega ? formatDateTimeLocal12h(t.fechaEntrega) : "Sin fecha";
+  const estadoBadge = t.completada 
+    ? '<span class="badge bg-success">✓ Completada</span>'
+    : '';
+    
+  const botonCompletar = t.completada 
+    ? ''
+    : `<button class="btn btn-success btn-sm me-2 btnCompletar">
+         <span class="completar-icon">✓</span> Completar
+       </button>`;
 
+  // Contenido inicial (solo visible al principio)
   div.innerHTML = `
-    <h3>${t.nombreTarea}</h3>
-    <p><b>Materia:</b> ${t.materia}</p>
-    <p><b>Fecha y hora de entrega:</b> ${formatDateTimeLocal12h(t.fechaEntrega)}</p>
-
-
-    <p><b>Prioridad:</b> ${t.prioridad}</p>
-    <p><b>Descripción:</b> ${t.descripcion}</p>
-    ${
-      t.completada
-        ? '<span class="badge bg-success">Completada</span>'
-        : `<button class="btnCompletar btn btn-success btn-sm me-2">Marcar como completada</button>`
-    }
-    <button class="btnEditar btn btn-primary btn-sm me-2">Editar</button>
-    <button class="btn btn-danger btn-sm">Eliminar</button>
+    <div class="card-header">
+      <h3>${t.nombreTarea}</h3>
+      ${estadoBadge}
+    </div>
+    <div class="card-body">
+      <div class="botones-iniciales">
+        ${botonCompletar}
+        <button class="btn btn-primary btn-sm me-2 btnEditar">✏️ Editar</button>
+      </div>
+      
+      <!-- Detalles ocultos inicialmente -->
+      <div class="detalle-tarea" style="display: none;">
+        <p><strong>📚 Materia:</strong> ${t.materia}</p>
+        <p><strong>⏰ Fecha:</strong> ${fechaEntrega}</p>
+        <p><strong>⚠️ Prioridad:</strong> ${t.prioridad}</p>
+        <p><strong>📝 Descripción:</strong> ${t.descripcion || 'Sin descripción'}</p>
+      </div>
+    </div>
   `;
 
+  // Evento para mostrar/ocultar detalles al hacer clic en la tarjeta
+  div.addEventListener("click", (e) => {
+    // Evitar que se dispare si se hace clic en un botón
+    if (e.target.tagName === 'BUTTON') return;
+    
+    const detalle = div.querySelector(".detalle-tarea");
+    detalle.style.display = detalle.style.display === "none" ? "block" : "none";
+  });
+
+  // Eventos de botones
   if (!t.completada) {
-    div.querySelector(".btnCompletar").addEventListener("click", () => marcarComoCompletada(t.nombreTarea));
+    div.querySelector(".btnCompletar").addEventListener("click", (e) => {
+      e.stopPropagation();
+      marcarComoCompletada(t.nombreTarea);
+    });
   }
-  div.querySelector(".btnEditar").addEventListener("click", () => abrirModalEditar(t));
-  div.querySelector(".btn-danger").addEventListener("click", () => eliminarTarea(t.nombreTarea));
+
+  div.querySelector(".btnEditar").addEventListener("click", (e) => {
+    e.stopPropagation();
+    abrirModalEditar(t);
+  });
 
   return div;
+}
+
+function getPrioridadClass(prioridad) {
+  switch(prioridad.toLowerCase()) {
+    case 'alta': return 'prioridad-alta';
+    case 'media': return 'prioridad-media';
+    case 'baja': return 'prioridad-baja';
+    default: return '';
+  }
 }
 
 async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
@@ -70,7 +113,8 @@ async function cargarTareas(filtroCampo = "", filtroValor = "", orden = "") {
       return;
     }
 
-    tareas.forEach(t => contenedor.appendChild(crearTarjetaTarea(t)));
+    tareas.forEach(t => contenedor.prepend(crearTarjetaTarea(t)));
+
   } catch (error) {
     console.error(error);
     contenedor.innerHTML = "<p>Error al cargar tareas.</p>";
@@ -90,6 +134,12 @@ function marcarComoCompletada(nombreTarea) {
       console.error(err);
       alert("Error al marcar tarea como completada");
     });
+}
+
+// Función para mostrar/ocultar filtros
+function toggleFilters() {
+  const panel = document.getElementById('filtersPanel');
+  panel.classList.toggle('show');
 }
 
 function cambiarPlaceholder() {

@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Histoial</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/historial.css">
 </head>
 <body>
-  <header class="main-header">
-    <label for="btn-nav" class="btn-nav"><img src="img/menu.png" alt="logo" width="25px"><i class="fas fa-bars"></i></label>
-    <link rel="stylesheet" href="css/historial.css">
-      <input type="checkbox" id="btn-nav">    
-        <nav>
-          <ul class="navigation">
-            <li><a href="tareas.html">Tareas</a></li>
-            <li><a href="historial.html">Historial</a></li>            
-            <li><a href="" onclick="logout()">Cerrar sesión</a></li>
-          </ul>
-        </nav>
-  </header>
+<header class="main-header">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-label">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <h1 class="logo">Historial de Tareas Completadas</h1>
+  
+  <nav class="main-nav">
+    <ul>
+      <li><a href="tareas.html">Tareas</a></li>
+      <li><a href="recordatorios.html">Recordatorios</a></li>
+      <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+    </ul>
+  </nav>
+</header>
+
+
   <div class="container-tareas">
-    <h2>Historial de Tareas Completadas</h2>
     <div id="listaCompletadas" class="tareas-lista"></div>
   </div>
 
