@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Histoial</title>
+    <title>Historial</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/historial.css">
+    <link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Roboto+Slab:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <header class="main-header">
@@ -15,36 +16,31 @@
     <span></span>
     <span></span>
   </label>
-  <h1 class="logo">Historial de Tareas Completadas</h1>
+  <h1 class="logo">Historial de Tareas</h1>
   
   <nav class="main-nav">
     <ul>
-      <li><a href="tareas.html">Tareas</a></li>
-      <li><a href="recordatorios.html">Recordatorios</a></li>
-      <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+      <li><a href="tareas.html">📋 Tareas</a></li>
+      <li><a href="recordatorios.html">⏰ Recordatorios</a></li>
+      <li><a href="#" onclick="logout()">🚪 Cerrar sesión</a></li>
     </ul>
   </nav>
 </header>
 
-
-  <div class="container-tareas">
-    <div id="listaCompletadas" class="tareas-lista"></div>
-  </div>
+<div class="container-tareas">
+  <div id="listaCompletadas" class="tareas-lista"></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="js/config.js"></script>
-  <script src="js/tareasHistorial.js"></script>
-  <script src="js/tareas.js"></script>
-  <script>
-    const token = localStorage.getItem("token");
-        if (!token) {
-          window.location.href = "login.html";
-        }
-      document.addEventListener("DOMContentLoaded", cargarHistorial);
-      document.addEventListener('DOMContentLoaded', () => {
-      cargarTareasCompletadas();
-      });
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/config.js"></script>
+<script src="js/tareasHistorial.js"></script>
+<script>
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "login.html";
+  }
+  document.addEventListener('DOMContentLoaded', cargarHistorial);
+</script>
 </body>
 </html>

@@ -87,6 +87,7 @@ async function agregarDesdeModal() {
     cerrarModal();
     cargarTareas();
   } catch (error) {
+    cerrarModal();
     Swal.fire("Error", error.response?.data?.mensaje || "Error desconocido", "error");
   }
 }

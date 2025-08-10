@@ -169,32 +169,6 @@ function aplicarFiltros() {
   cargarTareas(campo, valor, orden);
 }
 
-async function eliminarTarea(nombreTarea) {
-  const confirmacion = await Swal.fire({
-    title: "¿Estás seguro?",
-    text: "Esta acción eliminará la tarea permanentemente",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    cancelButtonColor: "#3085d6",
-    confirmButtonText: "Sí, eliminar",
-    cancelButtonText: "Cancelar"
-  });
 
-  // Solo continuar si el usuario confirma
-  if (confirmacion.isConfirmed) {
-    const axiosInstance = getAxiosInstance();
-
-    try {
-      const res = await axiosInstance.delete(`/tareas/nombreTarea/${encodeURIComponent(nombreTarea)}`);
-      Swal.fire("Eliminado", res.data.mensaje || "Tarea eliminada", "success");
-      cargarTareas();
-      cargarHistorial(); // Recargar lista
-    } catch (err) {
-      console.error("Error al eliminar tarea:", err);
-      Swal.fire("Error", "No se pudo eliminar la tarea", "error");
-    }
-  }
-}
 
 

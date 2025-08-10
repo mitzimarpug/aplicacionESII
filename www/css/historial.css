@@ -108,84 +108,94 @@ body {
 }
 
 
-::placeholder {
-  color: #000;
-  font-size: 15px;
-}
-
-.button_slide {
-  height: 60px;
-  width: 160px;
-  font-family: "Roboto Slab", serif;
-  font-size: large;
-  border: 3px solid #6d2e02;
-  background-color: #b47846;
-  color: black;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.button_slide:hover {
-  background-color: #a06c3c;
-}
-
-/* Contenedor general */
+/* Contenedor principal */
 .container-tareas {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 3rem;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 2rem;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* Contenedor de lista de tareas */
-.tareas-lista {
-  flex: 1;
-  min-width: 300px;
-}
-
-/* Tarjetas de tareas */
+/* Tarjetas de tareas completadas */
 .tarea-completada {
-  background-color: #6d2e02;
-  border: 2px solid #6d2e02;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  border-radius: 15px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-  font-family: "Roboto Slab", serif;
-  color: #000;
+  background: white;
+  border-radius: 10px;
+  border-left: 5px solid #4CAF50; /* Verde para tareas completadas */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+  transition: transform 0.2s;
+}
+
+.tarea-completada:hover {
+  transform: translateY(-3px);
 }
 
 .tarea-completada h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.4rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-family: "Happy Monkey", system-ui;
 }
 
-.tarea-completadad p {
-  margin: 0.3rem 0;
-  font-size: 1rem;
+.tarea-completada p {
+  margin: 5px 0;
+  color: #555;
 }
 
-.tarea-completada button {
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
-  background-color: #b47846;
+/* Badge de completada */
+.badge.bg-success {
+  background-color: #4CAF50 !important;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+/* Botón de eliminar */
+.btn-danger {
+  background-color: #e74c3c;
   border: none;
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: background 0.3s;
 }
 
-.tarea-completada button:hover {
-  background-color: #a06c3c;
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+/* Mensaje cuando no hay tareas */
+.container-tareas > p {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  font-size: 18px;
 }
 
 
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.empty-state, .error-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-state img {
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.btn-retry {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
