@@ -11,7 +11,7 @@ async function loginUsuario(e) {
     });
 
     localStorage.setItem("token", res.data.token);
-    localStorage.setItem("user", JSON.stringify(res.data.usuario));
+    localStorage.setItem("usuario", JSON.stringify(res.data.usuario));
     window.location.replace("tareas.html");
 
   } catch (err) {

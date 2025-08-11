@@ -9,13 +9,13 @@ function cargarDatosPerfil() {
     avatar: "img/avatar-default.png"
   };
 
-  // Actualizar imágenes y nombre
   document.querySelectorAll('.profile-pic, .nav-profile-pic').forEach(img => {
-    img.src = usuario.avatar;
+    img.src = usuario.avatar || "img/avatar-default.png";
   });
   
   document.getElementById('navUsername').textContent = usuario.nombre;
 }
+
 
 // Redirección al hacer clic en la imagen de perfil
 document.getElementById('profilePic').addEventListener('click', () => {
