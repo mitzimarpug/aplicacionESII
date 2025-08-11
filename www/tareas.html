@@ -6,8 +6,10 @@
     <title>Tareas</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/tareas.css">
+    <link rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Roboto+Slab:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
 <header class="main-header">
@@ -17,36 +19,40 @@
     <span></span>
     <span></span>
   </label>
+  
+  <!-- Logo/Nombre de la app -->
   <h1 class="logo">Mis Tareas</h1>
   
+  <!-- Perfil con imagen -->
+  <div class="profile-container">
+    <img src="img/avatar-default.png" alt="Perfil" class="profile-pic" id="profilePic">
+  </div>
+  
+  <!-- Menú lateral -->
   <nav class="main-nav">
-    <ul>
-      <li><a href="historial.html">📋 Historial</a></li>
+    <!-- Sección superior - Perfil -->
+    <div class="nav-profile">
+      <img src="img/avatar-default.png" alt="Perfil" class="nav-profile-pic" id="navProfilePic">
+      <span class="nav-username" id="navUsername">Usuario</span>
+    </div>
+    
+    <!-- Ítems del menú -->
+    <ul class="nav-menu">
+      <li><a href="tareas.html">📋 Tareas</a></li>
+      <li><a href="historial.html">📚 Historial</a></li>
       <li><a href="recordatorios.html">⏰ Recordatorios</a></li>
-      <li><a href="#" onclick="logout()">🚪 Cerrar sesión</a></li>
+      <li><a href="configuracion.html">⚙️ Configuración</a></li>
     </ul>
+    
+    <!-- Cerrar sesión abajo -->
+    <div class="nav-footer">
+      <a href="#" onclick="logout()" class="logout-btn">🚪 Cerrar sesión</a>
+    </div>
   </nav>
+
+  <div class="nav-overlay" onclick="document.getElementById('nav-toggle').checked = false"></div>
 </header>
 
-<!-- <div class="filtros-container">
-    <input type="text" id="filtroValor" class="icono-buscar" placeholder="Buscar tareas..." oninput="aplicarFiltros()">
-    
-    <select id="filtroCampo" class="icono-filtro" onchange="cambiarPlaceholder(); aplicarFiltros();">
-        <option value="nombreTarea">Nombre</option>
-        <option value="materia">Materia</option>
-        <option value="prioridad">Prioridad</option>
-    </select>
-    
-    <select id="ordenarPor" onchange="aplicarFiltros()">
-        <option value="">Ordenar por...</option>
-        <option value="fecha-asc">Fecha (↑)</option>
-        <option value="fecha-desc">Fecha (↓)</option>
-        <option value="nombre-asc">Nombre (A-Z)</option>
-        <option value="nombre-desc">Nombre (Z-A)</option>
-    </select>
-</div> -->
-
-<!-- Reemplaza tu actual filtros-container con este código -->
 <div class="search-container">
   <!-- Barra de búsqueda principal -->
   <div class="search-bar">
@@ -82,11 +88,15 @@
   </div>
 </div>
 
+
+
 <div class="container-tareas">
     <div class="tareas-lista" id="listaTareas">
         <!-- Aquí se cargan las tareas dinámicamente -->
     </div>
 </div>
+
+
 
 <button id="btnAgregarTarea" class="btn-flotante" onclick="abrirModalAgregar()">
     +
@@ -129,6 +139,7 @@
 <script src="js/auth.js"></script>
 <script src="js/tareas.js"></script>
 <script src="js/modalTarea.js"></script>
+<script src="js/perfil.js"></script>
 <script>
     const token = localStorage.getItem("token");
     if (!token) {

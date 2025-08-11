@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Historial</title>
+    <title>Configuración de Cuenta</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/historial.css">
     <link rel="stylesheet" href="css/navbar.css">
-    <link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Roboto+Slab:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/configuracion.css">
+    
 </head>
 <body>
+
 <header class="main-header">
   <input type="checkbox" id="nav-toggle" class="nav-toggle">
   <label for="nav-toggle" class="nav-toggle-label">
@@ -19,7 +20,7 @@
   </label>
   
   <!-- Logo/Nombre de la app -->
-  <h1 class="logo">Historial</h1>
+  <h1 class="logo">Configuración</h1>
   
   <!-- Perfil con imagen -->
   <div class="profile-container">
@@ -51,21 +52,41 @@
   <div class="nav-overlay" onclick="document.getElementById('nav-toggle').checked = false"></div>
 </header>
 
-<div class="container-tareas">
-  <div id="listaCompletadas" class="tareas-lista"></div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="js/config.js"></script>
-<script src="js/tareasHistorial.js"></script>
-<script src="js/perfil.js"></script>
+
+  <div class="config-container">
+    <h2>Configuración de Cuenta</h2>
+    
+    <div class="current-profile">
+      <img src="img/avatar-default.png" alt="Avatar actual" id="currentAvatar">
+      <h3 id="currentUsername">Usuario</h3>
+    </div>
+    
+    <div class="avatar-selection">
+      <h4>Seleccionar Avatar:</h4>
+      <div class="avatar-grid">
+        <img src="img/avatar1.png" alt="Avatar 1" class="avatar-option" data-avatar="img/avatar1.png">
+        <img src="img/avatar2.png" alt="Avatar 2" class="avatar-option" data-avatar="img/avatar2.png">
+        <img src="img/avatar3.png" alt="Avatar 3" class="avatar-option" data-avatar="img/avatar3.png">
+        <img src="img/avatar4.png" alt="Avatar 4" class="avatar-option" data-avatar="img/avatar4.png">
+      </div>
+    </div>
+    
+    <button class="btn btn-primary" onclick="guardarConfiguracion()">Guardar Cambios</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/perfil.js"></script>
+  <script src="js/configuracion.js"></script>
+  
 <script>
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "login.html";
-  }
-  document.addEventListener('DOMContentLoaded', cargarHistorial);
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "login.html";
+    }
+
 </script>
 </body>
 </html>
